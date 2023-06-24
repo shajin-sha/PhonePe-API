@@ -5,7 +5,7 @@
 
 ## Setup
 <!-- tell to create an .env file with followining data : -->
-
+.env file
 ```.env
 PORT=5000
 SALT=YOUR_SALT
@@ -55,3 +55,11 @@ POST /payment-status
     "merchantId": "MERCHANT_ID",
     "merchantTransactionId": "TRANSACTION_ID"
 }
+
+#### Response Body
+NB: for detialed information is available in the [PhonePe API Documentation](https://developer.phonepe.com/docs/phonepe-api/phonepe-api-references/phonepe-api-references-for-merchants#check-transaction-status) and you can find many felids in the response body for now we are only using the status field true.
+```json
+{
+    true
+}
+```
