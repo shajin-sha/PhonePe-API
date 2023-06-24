@@ -11,9 +11,22 @@ SALT=YOUR_SALT
 MERCHANT_ID=YOUR_MERCHANT_ID
 ```
 
+
 ## install dependencies
 ```bash
 npm install
+```
+
+node version
+```bash
+node -v
+v14.17.0
+```
+
+npm version
+```bash
+npm -v
+6.14.13
 ```
 
 ## Run

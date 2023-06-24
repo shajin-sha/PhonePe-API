@@ -11,18 +11,20 @@ const getPaymentStatus = require('./helpers/status');
 // Load environment variables.
 require('dotenv').config();
 
-// Define ex
+// Define express app.
 const app = express();
 
 // Use json body parser.
 app.use(bodyParser.json());
 app.use(cors());
 
-// Certificate for https server.
-var privateKey = fs.readFileSync("/etc/letsencrypt/live/screl.com/privkey.pem", "utf8");
-var certificate = fs.readFileSync("/etc/letsencrypt/live/screl.com/fullchain.pem","utf8");
+// Certificate for https server, it's required for phonepe api to work properly.
+// HTTPS is required for phonepe api to work properly.
+// Todo : Change this path to your certificate path.
+const privateKey = fs.readFileSync("/etc/letsencrypt/live/screl.com/privkey.pem", "utf8");
+const certificate = fs.readFileSync("/etc/letsencrypt/live/screl.com/fullchain.pem","utf8");
 
-var credentials = { key: privateKey, cert: certificate };
+const credentials = { key: privateKey, cert: certificate };
 
 // Request payment, and return response. 
 // This will retrun url for payment page.
@@ -32,11 +34,7 @@ app.post('/request-payment', (req, res) => {
     console.log(req.body);
     makePayment.makePayment(amount, mobileNumber).then((response) => {
         console.log(response);
-        res.status(200).json({
-            "url": response.data.instrumentResponse.redirectInfo.url,
-            "transactionId": response.data.merchantTransactionId,
-            "merchantId": response.data.merchantId
-        });
+        res.status(200).json({"url": response.data.instrumentResponse.redirectInfo.url,"transactionId": response.data.merchantTransactionId,"merchantId": response.data.merchantId});
     }).catch((error) => {
         console.log(error);
         res.status(500).json(error);
@@ -56,7 +54,7 @@ app.get('/payment-status', (req, res) => {
 });
 
 // Start server on given port.
-var httpsServer = https.createServer(credentials, app);
+const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(process.env.PORT, () => {
     console.log(`Secured server listening on port ${process.env.PORT} `);
 });
