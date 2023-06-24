@@ -2,7 +2,6 @@
 #### PhonePe API Sever side integration | Request payment & check status.
 
 
-
 ## Setup
 <!-- tell to create an .env file with followining data : -->
 .env file
@@ -34,8 +33,10 @@ POST /request-payment
     "amount": "1",
     "mobileNumber": "9999999999",
 },
+```
 
-// Response body
+#### Response body
+```
 {
     "url":"CHECKOUT_PAGE_URL",
     "transactionId":"TRANSACTION_ID",
@@ -55,6 +56,7 @@ POST /payment-status
     "merchantId": "MERCHANT_ID",
     "merchantTransactionId": "TRANSACTION_ID"
 }
+```
 
 #### Response Body
 NB: for detialed information is available in the [PhonePe API Documentation](https://developer.phonepe.com/docs/phonepe-api/phonepe-api-references/phonepe-api-references-for-merchants#check-transaction-status) and you can find many felids in the response body for now we are only using the status field true.
